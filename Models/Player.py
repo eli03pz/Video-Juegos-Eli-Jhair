@@ -6,6 +6,8 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.Surface((50, 50))  # Placeholder image
         self.image.fill((255, 0, 0))  # Placeholder color (red)
         self.rect = self.image.get_rect()
+        self.screen_width = screen_width
+        self.screen_height = screen_height
         self.rect.center = (screen_width // 2, screen_height // 2)
         self.speed = 5  # Velocidad de movimiento del jugador
 
@@ -23,16 +25,20 @@ class Player(pygame.sprite.Sprite):
 
     def move_up(self):
         # Método para mover el jugador hacia arriba
-        self.rect.y -= self.speed
+        if self.rect.top > 0:  # Verifica que el jugador no esté en el borde superior
+            self.rect.y -= self.speed
 
     def move_down(self):
         # Método para mover el jugador hacia abajo
-        self.rect.y += self.speed
+        if self.rect.bottom < self.screen_height:  # Verifica que el jugador no esté en el borde inferior
+            self.rect.y += self.speed
 
     def move_left(self):
         # Método para mover el jugador hacia la izquierda
-        self.rect.x -= self.speed
+        if self.rect.left > 0:  # Verifica que el jugador no esté en el borde izquierdo
+            self.rect.x -= self.speed
 
     def move_right(self):
         # Método para mover el jugador hacia la derecha
-        self.rect.x += self.speed
+        if self.rect.right < self.screen_width:  # Verifica que el jugador no esté en el borde derecho
+            self.rect.x += self.speed
