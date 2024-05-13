@@ -11,4 +11,6 @@ class Obstacle(pygame.sprite.Sprite):
         self.rect.y = random.randint(0, screen_height - self.rect.height)  # Posición aleatoria en altura
         self.speed = 5  # Velocidad de movimiento del obstáculo
 
-    # Métodos de movimiento, update, etc.
+    def update(self):
+        # Método para actualizar la posición del obstáculo en cada frame
+        self.rect.x -= self.speed
