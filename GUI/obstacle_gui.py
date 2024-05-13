@@ -4,8 +4,9 @@ import random
 class Obstacle(pygame.sprite.Sprite):
     def __init__(self, screen_width, screen_height):
         super().__init__()
-        self.image = pygame.Surface((30, 30))  # Placeholder image
-        self.image.fill((0, 0, 255))  # Placeholder color (blue)
+        # Cargar la imagen del obstáculo y redimensionarla
+        self.image = pygame.image.load("assets/aguilapreciosa.png").convert_alpha()
+        self.image = pygame.transform.scale(self.image, (30, 30))  # Redimensionar al tamaño deseado
         self.rect = self.image.get_rect()
         self.rect.x = screen_width  # Aparece al lado derecho de la pantalla
         self.rect.y = random.randint(0, screen_height - self.rect.height)  # Posición aleatoria en altura
