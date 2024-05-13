@@ -24,6 +24,9 @@ def run_game(difficulty):
 
     score_manager = ScoreManager()
 
+    # Cargar la imagen de fondo
+    background = pygame.image.load("assets/fondojuego.jpg") 
+
     running = True
     game_over = False
     last_score_update_time = pygame.time.get_ticks()  
@@ -49,7 +52,9 @@ def run_game(difficulty):
 
             all_sprites.update()
 
-            screen.fill((255, 255, 255))
+            # Dibujar la imagen de fondo
+            screen.blit(background, (0, 0))
+
             all_sprites.draw(screen)
 
             score_text = score_manager.get_score_text()
