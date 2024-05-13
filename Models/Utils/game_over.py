@@ -25,13 +25,14 @@ def draw_game_over_screen(screen):
     pygame.display.flip()  # Actualizar la pantalla
 
 def handle_game_over_input():
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_r:
-                    return 'restart'
-                elif event.key == pygame.K_q:
-                    return 'quit'
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_r:
+                return 'restart'
+            elif event.key == pygame.K_q:
+                return 'quit'
+        elif event.type == pygame.QUIT:  # Cerrar la ventana si el usuario hace clic en la "x"
+            return 'quit'
 
 def reset_game(player, all_sprites, obstacle_group, score_manager, SCREEN_WIDTH, SCREEN_HEIGHT):
     player.rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)

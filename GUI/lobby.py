@@ -22,7 +22,15 @@ def lobby(screen):
     screen.blit(text_hard, text_hard_rect)
     pygame.display.flip()
 
-    valid_options = {pygame.K_1: 5, pygame.K_2: 10, pygame.K_3: 15}
+    # Agregar teclas del teclado numérico
+    valid_options = {
+        pygame.K_1: 5,
+        pygame.K_KP1: 5,  # Tecla "1" del teclado numérico
+        pygame.K_2: 10,
+        pygame.K_KP2: 10,  # Tecla "2" del teclado numérico
+        pygame.K_3: 15,
+        pygame.K_KP3: 15  # Tecla "3" del teclado numérico
+    }
     selected_option = None
 
     # Esperar la entrada del usuario
@@ -44,4 +52,3 @@ def lobby(screen):
                     return
 
     return selected_option
-
