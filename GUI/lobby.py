@@ -3,7 +3,7 @@ import pygame
 # Función para el lobby con imagen de fondo
 def lobby(screen):
     # Cargar imagen de fondo
-    background_image = pygame.image.load("assets/lobbyedit.jpg").convert()
+    background_image = pygame.image.load("assets/fondotota.jpg").convert()
     screen.blit(background_image, (0, 0))
 
     # Dibujar texto en la pantalla

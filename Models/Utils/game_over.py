@@ -25,14 +25,21 @@ def draw_game_over_screen(screen):
     pygame.display.flip()  # Actualizar la pantalla
 
 def handle_game_over_input():
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_r:
-                return 'restart'
-            elif event.key == pygame.K_q:
-                return 'quit'
-        elif event.type == pygame.QUIT:  # Cerrar la ventana si el usuario hace clic en la "x"
-            return 'quit'
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_r:
+                    return 'restart'
+                elif event.key == pygame.K_q:
+                    return 'quit'
+                else:
+                    # Mostrar mensaje de error si se ingresa una tecla no válida
+                    font = pygame.font.Font(None, 24)
+                    error_text = font.render("Por favor, selecciona 'R' o 'Q'.", True, (255, 0, 0))
+                    screen.blit(error_text, (50, 50))
+                    pygame.display.flip()
+
+        pygame.time.delay(100)  # Pequeña pausa para evitar bucles muy rápidos
 
 def reset_game(player, all_sprites, obstacle_group, score_manager, SCREEN_WIDTH, SCREEN_HEIGHT):
     player.rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
@@ -40,7 +47,6 @@ def reset_game(player, all_sprites, obstacle_group, score_manager, SCREEN_WIDTH,
     obstacle_group.empty()
     all_sprites.add(player)
     score_manager.reset_score()
-
 
 def show_game_over_screen(screen):
     draw_game_over_screen(screen)
