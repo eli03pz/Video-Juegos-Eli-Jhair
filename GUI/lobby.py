@@ -1,7 +1,11 @@
 import pygame
 
-# Función para el lobby
+# Función para el lobby con imagen de fondo
 def lobby(screen):
+    # Cargar imagen de fondo
+    background_image = pygame.image.load("assets/lobbyedit.jpg").convert()
+    screen.blit(background_image, (0, 0))
+
     # Dibujar texto en la pantalla
     font = pygame.font.Font(None, 36)
     text_easy = font.render("1 - Fácil", True, (0, 0, 0))
@@ -13,7 +17,6 @@ def lobby(screen):
     text_medium_rect = text_medium.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2))
     text_hard_rect = text_hard.get_rect(center=(screen.get_width() // 2, screen.get_height() // 1.5))
 
-    screen.fill((255, 255, 255))
     screen.blit(text_easy, text_easy_rect)
     screen.blit(text_medium, text_medium_rect)
     screen.blit(text_hard, text_hard_rect)
@@ -41,3 +44,4 @@ def lobby(screen):
                     return
 
     return selected_option
+
