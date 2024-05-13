@@ -1,43 +1,54 @@
 import pygame
 
-# Función para el lobby
-def lobby(screen):
-    # Dibujar texto en la pantalla
-    font = pygame.font.Font(None, 36)
-    text_easy = font.render("1 - Fácil", True, (0, 0, 0))
-    text_medium = font.render("2 - Medio", True, (0, 0, 0))
-    text_hard = font.render("3 - Difícil", True, (0, 0, 0))
+# Función para cargar una imagen de fondo
+def cargar_fondo(ruta_imagen, screen):
+    background_image = pygame.image.load(ruta_imagen).convert()
+    screen.blit(background_image, (0, 0))
 
-    # Centrar texto en la pantalla
-    text_easy_rect = text_easy.get_rect(center=(screen.get_width() // 2, screen.get_height() // 3))
-    text_medium_rect = text_medium.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2))
-    text_hard_rect = text_hard.get_rect(center=(screen.get_width() // 2, screen.get_height() // 1.5))
+# Función para dibujar botones con efecto 3D
+def dibujar_boton(screen, texto, posicion, tamano, color_fondo, color_texto):
+    font = pygame.font.Font(None, tamano)
+    boton_texto = font.render(texto, True, color_texto)
+    boton_rect = boton_texto.get_rect(center=posicion)
 
-    screen.fill((255, 255, 255))
-    screen.blit(text_easy, text_easy_rect)
-    screen.blit(text_medium, text_medium_rect)
-    screen.blit(text_hard, text_hard_rect)
+    # Dibujar el fondo del botón (efecto 3D)
+    pygame.draw.rect(screen, (200, 200, 200), (boton_rect.x - 5, boton_rect.y - 5, boton_rect.width + 10, boton_rect.height + 10))
+    pygame.draw.rect(screen, color_fondo, boton_rect)
+
+    # Dibujar el texto del botón
+    screen.blit(boton_texto, boton_rect.center)
+    return boton_rect
+
+# Función para el lobby con botones y fondo
+def lobby_con_botones(screen, fondo_imagen):
+    cargar_fondo(fondo_imagen, screen)
+
+    # Dibujar botones con efecto 3D y colores especificados
+    boton_facil = dibujar_boton(screen, "Fácil", (screen.get_width() // 2, screen.get_height() // 3), 42, (214, 0, 113), (255, 255, 255))
+    boton_medio = dibujar_boton(screen, "Medio", (screen.get_width() // 2, screen.get_height() // 2), 42, (255, 58, 150), (255, 255, 255))
+    boton_dificil = dibujar_boton(screen, "Difícil", (screen.get_width() // 2, screen.get_height() // 1.5), 42, (0, 221, 103), (255, 255, 255))
+
     pygame.display.flip()
 
-    valid_options = {pygame.K_1: 5, pygame.K_2: 10, pygame.K_3: 15}
-    selected_option = None
-
-    # Esperar la entrada del usuario
-    while selected_option is None:
+    # Validar selección del usuario
+    while True:
         for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key in valid_options:
-                    selected_option = valid_options[event.key]
-                else:
-                    # Mostrar mensaje de error en la pantalla
-                    error_font = pygame.font.Font(None, 24)
-                    error_text = error_font.render("Por favor, selecciona una opción válida (1, 2 o 3).", True, (255, 0, 0))
-                    error_text_rect = error_text.get_rect(center=(screen.get_width() // 2, screen.get_height() - 50))
-                    screen.blit(error_text, error_text_rect)
-                    pygame.display.flip()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                if boton_facil.collidepoint(mouse_pos):
+                    return 5  # Opción seleccionada para Fácil
+                elif boton_medio.collidepoint(mouse_pos):
+                    return 10  # Opción seleccionada para Medio
+                elif boton_dificil.collidepoint(mouse_pos):
+                    return 15  # Opción seleccionada para Difícil
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                return
 
-                if event.key == pygame.K_ESCAPE:  # Salir si se presiona Esc
-                    pygame.quit()
-                    return
-
-    return selected_option
+# Ejemplo de uso
+pygame.init()
+screen = pygame.display.set_mode((800, 600))
+fondo_imagen = "assets/lobbyde.jpg"  # Reemplaza con la ruta de tu imagen de fondo
+selected_option = lobby_con_botones(screen, fondo_imagen)
+print("Opción seleccionada:", selected_option)
+pygame.quit()

@@ -13,7 +13,7 @@
 2. ```git add .``` -> Agrega todos los archivos
 3. ```git  commit -m"Mensaje"``` -> Agrega un mensaje al commit que vas a hacer
 4. ```git push``` -> Sube la info a github
-5. ```git pull``` -> Recuerda que este verifica si hay actualizaciones
+5. ```git pull``` -> Recuerda que este verifica si hay actualizaciones.
 
 ---
 Recueerda: Siempre revisar que estes en la carpeta del repo, esto lo haces con el comando:
