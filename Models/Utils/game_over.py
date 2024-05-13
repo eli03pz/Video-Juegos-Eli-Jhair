@@ -24,7 +24,7 @@ def draw_game_over_screen(screen):
 
     pygame.display.flip()  # Actualizar la pantalla
 
-def handle_game_over_input():
+def handle_game_over_input(screen):  # Añadir screen como argumento
     while True:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -50,4 +50,4 @@ def reset_game(player, all_sprites, obstacle_group, score_manager, SCREEN_WIDTH,
 
 def show_game_over_screen(screen):
     draw_game_over_screen(screen)
-    return handle_game_over_input()
+    return handle_game_over_input(screen)  # Pasar screen como argumento
