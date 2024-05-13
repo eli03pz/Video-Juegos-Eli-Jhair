@@ -3,8 +3,9 @@ import pygame
 class Player(pygame.sprite.Sprite):
     def __init__(self, screen_width, screen_height):
         super().__init__()
-        self.image = pygame.Surface((50, 50))  # Placeholder image
-        self.image.fill((255, 0, 0))  # Placeholder color (red)
+        # Cargar la imagen del jugador y redimensionarla si es necesario
+        self.image = pygame.image.load("assets/pollitobonito.png").convert_alpha()
+        self.image = pygame.transform.scale(self.image, (50, 50))  # Redimensionar al tamaño deseado
         self.rect = self.image.get_rect()
         self.screen_width = screen_width
         self.screen_height = screen_height
